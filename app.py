@@ -1,6 +1,6 @@
 import streamlit as st
 from langchain.llms import Ollama
-from langchain.embeddings import HuggingFaceEmbeddings
+from langchain_community.embeddings import HuggingFaceBgeEmbeddings
 from langchain.vectorstores import Chroma
 from langchain.chains import ConversationalRetrievalChain
 from langchain.memory import ConversationBufferMemory
@@ -9,7 +9,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 import os
 
 # === Settings ===
-EMBED_MODEL_NAME = "all-MiniLM-L6-v2"
+EMBED_MODEL_NAME = "BAAI/bge-small-en-v1.5"
 CHROMA_PATH = "chroma_db"
 DOC_PATH = "engineer.txt"
 
@@ -25,7 +25,7 @@ def setup_vectordb():
     docs = loader.load()
     splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
     split_docs = splitter.split_documents(docs)
-    embeddings = HuggingFaceEmbeddings(model_name=EMBED_MODEL_NAME)
+    embeddings = HuggingFaceBgeEmbeddings(model_name=EMBED_MODEL_NAME)
     vectordb = Chroma.from_documents(split_docs, embedding_model=embeddings, persist_directory=CHROMA_PATH)
     vectordb.persist()
     return vectordb
