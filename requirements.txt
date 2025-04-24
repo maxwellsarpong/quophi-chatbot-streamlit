@@ -1,0 +1,6 @@
+# Requires Python 3.8+
+streamlit
+langchain
+chromadb
+langchain-community
+huggingface-hub
