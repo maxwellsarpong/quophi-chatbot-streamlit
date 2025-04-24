@@ -4,3 +4,4 @@ langchain
 chromadb
 langchain-community
 huggingface-hub
+langchain-huggingface
